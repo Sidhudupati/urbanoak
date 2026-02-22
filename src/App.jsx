@@ -20,6 +20,19 @@ function App() {
     return () => clearInterval(timer);
   }, []);
 
+
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+
   const categories = [
     { id: 'all', name: 'All Collections', icon: Sparkles },
     { id: 'sofas', name: 'Luxury Sofas', icon: Sofa },
@@ -85,6 +98,8 @@ function App() {
     to_email: "urbanoak.info@gmail.com",
   };
 
+  
+
   // ✅ Immediately show Thank You
   setShowEnquiry(false);
   setShowThankYou(true);
@@ -111,12 +126,12 @@ function App() {
     <div style={{ background: '#000', color: '#FEF3C7', minHeight: '100vh' }}>
       
       {/* Navbar */}
-      <nav style={{ position: 'fixed', top: 0, width: '100%', background: 'rgba(0,0,0,0.98)', borderBottom: '1px solid rgba(217,119,6,0.2)', zIndex: 50, padding: '1rem 2rem', backdropFilter: 'blur(10px)' }}>
+      <nav style={{ position: 'fixed', top: 0, width: '100%', background: 'rgba(0,0,0,0.98)', borderBottom: '1px solid rgba(217,119,6,0.2)', zIndex: 50, padding: isMobile ? '1rem' : '1rem 2rem', backdropFilter: 'blur(10px)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', maxWidth: '1280px', margin: '0 auto' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <div style={{ width: '50px', height: '50px', background: 'linear-gradient(to bottom right, #D97706, #92400E)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '1.5rem' }}>U</div>
             <div>
-              <div style={{ fontSize: '1.5rem', fontWeight: 'bold', letterSpacing: '0.1em' }}>URBANOAK</div>
+              <div style={{ fontSize: isMobile ? '1.1rem' : '1.5rem', fontWeight: 'bold', letterSpacing: '0.1em' }}>URBANOAK</div>
               <div style={{ fontSize: '0.6rem', color: '#B45309', letterSpacing: '0.2em' }}>FINE FURNITURE</div>
             </div>
           </div>
@@ -231,7 +246,7 @@ function App() {
                   }}></div>
                   
                   <h1 style={{ 
-                    fontSize: '5rem', 
+                    fontSize: isMobile ? '2.2rem' : '5rem', 
                     fontWeight: 'bold', 
                     marginBottom: '1.5rem',
                     lineHeight: '1.1',
@@ -244,7 +259,7 @@ function App() {
                   </h1>
                   
                   <p style={{ 
-                    fontSize: '1.5rem', 
+                    fontSize: isMobile ? '1rem' : '1.5rem', 
                     color: 'rgba(254,243,199,0.9)', 
                     marginBottom: '3rem',
                     lineHeight: '1.6',
@@ -337,7 +352,7 @@ function App() {
       </div>
 
       {/* Categories Grid */}
-      <div style={{ padding: '4rem 2rem', background: 'linear-gradient(to bottom, #000, #0a0a0a)', borderTop: '1px solid rgba(217,119,6,0.2)', borderBottom: '1px solid rgba(217,119,6,0.2)' }}>
+      <div style={{ padding: isMobile ? '2rem 1rem' : '4rem 2rem', background: 'linear-gradient(to bottom, #000, #0a0a0a)', borderTop: '1px solid rgba(217,119,6,0.2)', borderBottom: '1px solid rgba(217,119,6,0.2)' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', marginBottom: '1rem' }}>
@@ -349,7 +364,9 @@ function App() {
             <p style={{ color: 'rgba(254,243,199,0.5)', fontSize: '1.1rem' }}>Discover the perfect piece for every room</p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))', gap: '1.5rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile? 'repeat(2, 1fr)': 
+            'repeat(auto-fit, minmax(100px, 1fr))', 
+            gap: '1.5rem' }}>
             {categories.map((cat) => {
               const IconComponent = cat.icon;
               return (
@@ -437,12 +454,12 @@ function App() {
       </div>
 
       {/* Products */}
-      <div style={{ padding: '4rem 2rem', maxWidth: '1280px', margin: '0 auto' }}>
+      <div style={{ padding: isMobile ? '2rem 1rem' : '4rem 2rem', maxWidth: '1280px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
           <h2 style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '1rem' }}>Featured Collection</h2>
           <p style={{ color: 'rgba(254,243,199,0.5)', fontSize: '1.1rem' }}>Superior craftsmanship and timeless design</p>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: '2rem' }}>
           {filteredProducts.map((product) => (
             <div key={product.id} style={{ background: '#0a0a0a', border: '1px solid rgba(217,119,6,0.2)', overflow: 'hidden', transition: 'all 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-8px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
               <div style={{ position: 'relative', height: '300px', overflow: 'hidden' }}>
@@ -473,7 +490,7 @@ function App() {
       </div>
 
       {/* Why Choose Us */}
-      <div style={{ padding: '4rem 2rem', background: '#0a0a0a', borderTop: '1px solid rgba(217,119,6,0.2)', borderBottom: '1px solid rgba(217,119,6,0.2)' }}>
+      <div style={{ padding: isMobile ? '2rem 1rem' : '4rem 2rem', background: '#0a0a0a', borderTop: '1px solid rgba(217,119,6,0.2)', borderBottom: '1px solid rgba(217,119,6,0.2)' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', marginBottom: '1rem' }}>
@@ -484,7 +501,7 @@ function App() {
             <h2 style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>Why Choose Urban Oak Furniture?</h2>
             <p style={{ color: 'rgba(254,243,199,0.5)', fontSize: '1.1rem' }}>Discover what makes us the preferred choice</p>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: '2rem' }}>
             {[
               { icon: '🪵', title: 'Premium Materials', desc: 'High-quality solid wood, durable boards, and superior hardware for long-lasting performance' },
               { icon: '🛠️', title: 'Custom-Made Furniture', desc: 'Designed to fit your space perfectly — choose size, finish, fabric, and style' },
