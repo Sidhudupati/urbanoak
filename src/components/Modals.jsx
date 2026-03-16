@@ -130,7 +130,7 @@ export function ThankYouModal({ onClose }) {
 }
 
 export function EnquiryModal({ onClose, onSuccess }) {
-  const [formData, setFormData] = useState({ name: '', furnitureType: '', budget: '' });
+  const [formData, setFormData] = useState({ name: '', phone: '', furnitureType: '', budget: '' });
   const [focusedField, setFocusedField] = useState(null);
   const [submitting, setSubmitting] = useState(false);
 
@@ -140,6 +140,7 @@ export function EnquiryModal({ onClose, onSuccess }) {
 
     const templateParams = {
       name: formData.name,
+      phone: formData.phone,
       furnitureType: formData.furnitureType,
       budget: formData.budget,
       to_email: 'urbanoak.info@gmail.com',
@@ -287,6 +288,20 @@ export function EnquiryModal({ onClose, onSuccess }) {
           </div>
 
           <div style={{ marginBottom: '1.5rem' }}>
+            <label style={labelStyle}>PHONE NUMBER</label>
+            <input
+              type="tel"
+              required
+              placeholder="+91 98765 43210"
+              value={formData.phone}
+              onChange={e => setFormData({ ...formData, phone: e.target.value })}
+              onFocus={() => setFocusedField('phone')}
+              onBlur={() => setFocusedField(null)}
+              style={fieldStyle('phone')}
+            />
+          </div>
+
+          <div style={{ marginBottom: '1.5rem' }}>
             <label style={labelStyle}>FURNITURE TYPE</label>
             <div style={{ position: 'relative' }}>
               <select
@@ -309,7 +324,7 @@ export function EnquiryModal({ onClose, onSuccess }) {
             <input
               type="text"
               required
-              placeholder="e.g. ₹50,000 – ₹1,00,000"
+              placeholder="Any Range"
               value={formData.budget}
               onChange={e => setFormData({ ...formData, budget: e.target.value })}
               onFocus={() => setFocusedField('budget')}
@@ -348,17 +363,7 @@ export function EnquiryModal({ onClose, onSuccess }) {
           </button>
         </form>
 
-        {/* Privacy note */}
-        <p style={{
-          fontFamily: 'var(--font-mono)',
-          fontSize: '0.55rem',
-          color: 'var(--text-faint)',
-          letterSpacing: '0.1em',
-          textAlign: 'center',
-          marginTop: '1.5rem',
-        }}>
-          YOUR DATA IS SECURE — WE NEVER SHARE IT
-        </p>
+
       </div>
     </div>
   );
