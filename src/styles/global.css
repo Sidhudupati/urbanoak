@@ -1,6 +1,9 @@
+/* ===== URBANOAK GLOBAL STYLES ===== */
+
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Rajdhani:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
 
 :root {
+  /* Core palette */
   --gold: #C9933A;
   --gold-bright: #E8A94D;
   --gold-dim: rgba(201, 147, 58, 0.4);
@@ -16,10 +19,16 @@
   --text: #EDE0C4;
   --text-dim: rgba(237, 224, 196, 0.5);
   --text-faint: rgba(237, 224, 196, 0.2);
+
+  /* Typography */
   --font-serif: 'Cormorant Garamond', Georgia, serif;
   --font-display: 'Rajdhani', sans-serif;
   --font-mono: 'Space Mono', monospace;
+
+  /* Spacing */
   --nav-h: 80px;
+
+  /* Transitions */
   --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   --ease-expo: cubic-bezier(0.19, 1, 0.22, 1);
@@ -44,13 +53,7 @@ body {
   cursor: none;
 }
 
-#root {
-  max-width: 100%;
-  margin: 0;
-  padding: 0;
-  text-align: left;
-}
-
+/* Custom cursor */
 .cursor {
   position: fixed;
   width: 10px;
@@ -74,11 +77,13 @@ body {
   transition: all 0.15s ease;
 }
 
+/* Scrollbar */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--void); }
 ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 2px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
 
+/* Noise texture overlay */
 body::before {
   content: '';
   position: fixed;
@@ -89,6 +94,51 @@ body::before {
   opacity: 0.4;
 }
 
+/* Shared section padding */
+.section-pad {
+  padding: 6rem 2rem;
+}
+
+@media (max-width: 768px) {
+  .section-pad { padding: 3rem 1rem; }
+}
+
+/* Gold line accent */
+.gold-line {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(to right, var(--gold), transparent);
+}
+
+.gold-line-center {
+  width: 60px;
+  height: 1px;
+  background: var(--gold);
+}
+
+/* Tag label */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+/* Glow effect */
+.glow-gold {
+  box-shadow: 0 0 40px rgba(201, 147, 58, 0.25);
+}
+
+/* Scanline grid background */
+.scanline-bg {
+  background-image:
+    linear-gradient(rgba(201, 147, 58, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201, 147, 58, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Button base */
 .btn-primary {
   font-family: var(--font-display);
   font-weight: 600;
@@ -96,9 +146,10 @@ body::before {
   text-transform: uppercase;
   border: none;
   cursor: none;
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.3s var(--ease-smooth);
 }
 
+/* Clip path corner cut */
 .corner-cut {
   clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
 }
@@ -107,6 +158,7 @@ body::before {
   clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
 }
 
+/* Animations */
 @keyframes float-particle {
   0%, 100% { transform: translateY(0) translateX(0) scale(1); opacity: 0.6; }
   33% { transform: translateY(-40px) translateX(20px) scale(1.2); opacity: 0.3; }
@@ -123,6 +175,15 @@ body::before {
   50% { box-shadow: 0 0 40px rgba(201, 147, 58, 0.6), 0 0 80px rgba(201, 147, 58, 0.2); }
 }
 
+@keyframes data-stream {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-20px); opacity: 0; }
+}
+
+@keyframes border-spin {
+  to { transform: rotate(360deg); }
+}
+
 @keyframes flicker {
   0%, 100% { opacity: 1; }
   92% { opacity: 1; }
@@ -130,9 +191,4 @@ body::before {
   94% { opacity: 1; }
   96% { opacity: 0.9; }
   97% { opacity: 1; }
-}
-
-@media (max-width: 768px) {
-  body { cursor: auto; }
-  .cursor, .cursor-ring { display: none; }
 }
