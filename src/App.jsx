@@ -5,7 +5,7 @@ import Navbar from './components/Navbar.jsx';
 import Hero from './components/Hero.jsx';
 import Categories from './components/Categories.jsx';
 import Products from './components/Products.jsx';
-import WhyUs from './components/WhyUs.jsx';
+import WhyUs from './components/Whyus.jsx';
 import Footer from './components/Footer.jsx';
 import { EnquiryModal, ThankYouModal } from './components/Modals.jsx';
 
